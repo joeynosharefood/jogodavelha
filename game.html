@@ -8,11 +8,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id='board'></div>
+    <section id='game'>
+    <div id='board'>
+    </div>
     <div>
-        <img id='turn' src="/img/o.png" alt="" srcset="">
+        <img id="winner" src="" alt="" srcset="">
+    </div>
+    </section>
+    <div id='turnbox'>
+        <h2>Turn</h2>
+       <img id='turn' src="/img/o.png" alt="" srcset="">
+    </div>
+    <div onclick="reset()" id='reset'>
+        <p>Reset</p>
     </div>
     <script src="js\structure.js"></script>
-
 </body>
 </html>

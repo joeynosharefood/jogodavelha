@@ -4,7 +4,7 @@ const boardWidth = 4
 const boardArea = boardHeight * boardWidth
 const debug = false
 var playe = 'circle'
-var insOfvic = 0
+empate = 0
 //Instancia de Vitoria
 //Circulo 
 var insCirc1 = 0
@@ -28,6 +28,7 @@ var insX8 = 0
 function start(){
     createStructure()
     renderBoard()
+    boardGen()
 }
 function createStructure(){
     for (let i = 1; i <= boardArea; i++){
@@ -45,7 +46,7 @@ function renderBoard(){
                 html += cellIndex
                 html += '</td>'
             }else{
-                html += `<td id="${cellIndex}" onclick="change(${cellIndex}); tradeturn()">`
+                html += `<td id="${cellIndex}" class ="pixel-${cellIndex}"onclick="change(${cellIndex}); tradeturn()">`
                 html += '</td>'
             }
         }
@@ -57,9 +58,11 @@ function renderBoard(){
 function change(index){
     let backChange = document.getElementById(`${index}`)
     if (playe == 'circle'){
+        empate += 1
         backChange.classList.add('circle')
         entryData(index, 'circle')
     }else{
+        empate += 1
         backChange.classList.add('x')
         entryData(index, 'x')
     }
@@ -77,21 +80,23 @@ function tradeturn(){
 }
 function scanner(){
         if (insCirc1 == 18 || insX1 == 18){
-            alert('Você ganhou')
+            winner(1)
         }else if(insCirc2 == 30 || insX2 == 30){
-            alert('Você ganhou')
+            winner(2)
         }else if(insCirc3 == 42 || insX3 == 42){
-            alert('Você ganhou')
+            winner(3)
         }else if(insCirc4 == 30 || insX4 == 30){
-            alert('Você ganhou')
+            winner(4)
         }else if(insCirc5 == 30 || insX5 == 30){
-            alert('Você ganhou')
+            winner(5)
         }else if(insCirc6 == 27 || insX6 == 27){
-            alert('Você ganhou')
+            winner(6)
         }else if(insCirc7 == 30 || insX7 == 30){
-            alert('Você ganhou')
+            winner(7)
         }else if(insCirc8 == 33 || insX8 == 33){
-            alert('Você ganhou')
+            winner(8)
+        }else if(empate == 9){
+            draw()
         }
 }
 function entryData(pos, type){
@@ -141,10 +146,12 @@ function entryData(pos, type){
                 insCirc2 += pos
                 insCirc4 += pos
                 insCirc5 += pos 
+                insCirc7 += pos
             }else if(type == 'x'){
                 insX2 += pos
                 insX4 += pos
                 insX5 += pos 
+                insX7 += pos 
             }
             break;
         case 11:
@@ -188,5 +195,46 @@ function entryData(pos, type){
             }
             break;
     }
+}
+function resetVar(){
+    //Circulo 
+    insCirc1 = 0
+    insCirc2 = 0
+    insCirc3 = 0
+    insCirc4 = 0
+    insCirc5 = 0
+    insCirc6 = 0
+    insCirc7 = 0
+    insCirc8 = 0
+    //X
+    insX1 = 0
+    insX2 = 0
+    insX3 = 0
+    insX4 = 0
+    insX5 = 0
+    insX6 = 0
+    insX7 = 0
+    insX8 = 0
+    //Turn
+    playe = 'circle'
+}
+function winner(condition){
+    let win = document.getElementById('winner')
+    win.src = `../img/${condition}.png`
+}
+function reset(){
+    empate = 0
+    let win1 = document.getElementById('winner')
+    win1.src = ""
+    resetVar()
+    start()
+}
+function draw(){
+    empate = 0
+    alert('Empate')
+    let win1 = document.getElementById('winner')
+    win1.src = ""
+    resetVar()
+    start()
 }
 start()
